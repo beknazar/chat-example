@@ -1,0 +1,28 @@
+.msgBox ul {
+	height:300px;
+    overflow:auto;
+}
+
+.inputArea {
+	display: table;
+	width: 100%;
+}å
+
+.inputArea input {
+	width: 100%;
+}
+
+.inputArea #text {
+	width: 100%;
+	display: table-cell;
+	padding-right: 2%;
+}
+
+.inputArea #send {
+	display: table-cell;
+}
+
+.inputArea #m {
+	width: 100%;
+
+}
