@@ -26,3 +26,16 @@
 	width: 100%;
 
 }
+
+.nick {
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+.messageBody {
+	/*margin-left: 10px;*/
+}
+
+.typing {
+	margin-right: 10px;
+}

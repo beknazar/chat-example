@@ -9,30 +9,28 @@ html
 		div.container
 			div
 					h1.text-center.text-primary.title=name
-			div.container.text-center#nickGet
-				div
-					h3 Please, enter a nickname:
-				div
-					form.form-inline#register
-						input.form-control
+			ul.areas.list-unstyled
+				li.chatArea
+					div.row.msgBox
+						div.col-xs-8
+							ul.messages.list-unstyled
+						div.col-xs-4
+							ul.users
+								- for (nick in nicks) {
+									li.user=nicks[nick]
+								- }
+					div.row
+						div.col-xs-8
+							div.form-inline.inputArea
+								div#text
+									input.inputMessage.form-control#m(autocomplete="off")
+								div#send
+									button.btn.btn-primary send
+				li.loginArea
+					div.form-inline
+						h3.title What's your nickname?
+						input.form-control.nickInput(type="text", maxlength="14")
 						button.btn.btn-success start
-					span.hidden.text-danger#labelError Oops, it's already taken. Please enter different nickname
-			div.container.hidden
-				div.row.msgBox
-					div.col-xs-8
-						ul.list-unstyled#messages
-							li.h4 Welcome to chat
-					div.col-xs-4
-						ul#users
-							li Bek
-							li Askar
-				div.row
-					div.col-xs-8				
-						form.form-inline.inputArea
-							div#text
-								input.form-control#m(autocomplete="off")
-							div#send
-								button.btn.btn-primary send
 		script(src="https://cdn.socket.io/socket.io-1.2.0.js")
 		script(src="http://code.jquery.com/jquery-1.11.1.js")
 		script(src="script.js")
