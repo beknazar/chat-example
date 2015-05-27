@@ -72,7 +72,7 @@ $(function() {
 
 	// Log a message
 	function log (message, options) {
-		var $el = $('<li>').addClass('log').text(message);
+		var $el = $('<li>').addClass('log').html(message);
 		addMessageElement($el, options);
 	}
 
@@ -80,14 +80,14 @@ $(function() {
 	function updateUsersList (nick, option) {
 		// console.log(nick + ' : ' + option);
 		if (option) {
-			var $userDiv = $('<li class="user"/>')
-				.text(nick)
-				.data('nick', nick);
+			var $userDiv = $('<li class="user list-group-item"/>')
+				.text(nick);
 			$usersList.append($userDiv);
 		} else {
 			var $target = $('.user').filter(function (i) {
-				return $(this).data('nick') === nick;
+				return $(this).text() === nick;
 			});
+			console.log('left: ' + $target.toString());
 			$target.fadeOut(function () {
 				$(this).remove();
 			});
@@ -109,9 +109,9 @@ $(function() {
 			.css('color', getNickColor(data.nick));
 		var $messageBodyDiv = $('<span class ="messageBody">')
 			.text(data.message);
-		console.log(data.message);
+		// console.log(data.message);
 		var typingClass = data.typing ? 'typing' : '';
-		var $messageDiv = $('<li class "message"/>')
+		var $messageDiv = $('<li class="message"/>')
 			.data('nick', data.nick)
 			.addClass(typingClass)
 			.append($nickDiv, $messageBodyDiv);
@@ -258,16 +258,25 @@ $(function() {
 		addChatMessage(data);
 	});
 
+	function userUpdateLog(nick, status) {
+		var $el = $('<span class="nick">')
+			.text(nick)
+			.css('color', 'black')
+			.after('<div>left</div>');
+		var $div = $('<li>').addClass('log').append($el, status);
+		addMessageElement($div);
+	}
+
 	// Whenever the server emits 'user joined', log it in the chat body
 	socket.on('user joined', function (data) {
-		log(data.nick + ' joined');
+		userUpdateLog(data.nick, 'joined');
 		addParticipantsMessage(data);
 		updateUsersList(data.nick, true);
-	});
-
+	})
+;
 	// Whenever the server emits 'user left', log it in the chat body
 	socket.on('user left', function (data) {
-		log(data.nick + ' left');
+		userUpdateLog(data.nick, 'left');
 		addParticipantsMessage(data);
 		removeChatTyping(data);
 		updateUsersList(data.nick, false);

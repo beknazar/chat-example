@@ -16,8 +16,9 @@ html
 							ul.messages.list-unstyled
 						div.col-xs-4
 							ul.users
+								li.user.list-group-item.active Online users
 								- for (nick in nicks) {
-									li.user=nicks[nick]
+									li.user.list-group-item=nicks[nick]
 								- }
 					div.row
 						div.col-xs-8
